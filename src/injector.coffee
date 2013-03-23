@@ -29,7 +29,11 @@ class Mapping
     
 class Injector
     getRelativePath = (path) ->
-        "../#{path}"
+        if process?
+            # getting root folder of process
+            "#{process.cwd()}/#{path}"
+        else
+            path
 
     mapping = {}
 

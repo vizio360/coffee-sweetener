@@ -1,1 +1,1 @@
-module.exports = require("lib/injector");
+module.exports = require("./lib/injector");

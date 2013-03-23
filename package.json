@@ -1,0 +1,16 @@
+{
+  "name": "nodeInjector",
+  "version": "0.0.0",
+  "description": "ERROR: No README.md file found!",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Simone Vicentini (@vizio360)",
+  "license": "BSD",
+  "gitHead": "7950255063a3ddf5360f48e1cd03a612dddecd86"
+}

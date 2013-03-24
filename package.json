@@ -7,7 +7,12 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine-node --test-dir test --coffee",
+    "prepublish": "coffee -bco lib src"
+  },
+  "devDependencies": {
+      "jasmine-node": ">=1.4.0",
+      "coffee-script": ">=1.6.0"
   },
   "repository": "",
   "author": "Simone Vicentini (@vizio360)",

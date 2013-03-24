@@ -25,7 +25,6 @@ class Mapping
     as: (newName) ->
         @Injector.remap(@klassName, newName)
         @
-
     
 class Injector
     getRelativePath = (path) ->

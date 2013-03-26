@@ -129,4 +129,23 @@ describe "Injector", ->
         expect(instance.testInit instanceof Injector.getClassOf("TestInit")).toBe(true)
         expect(instance.someInt).toBe(12345)
         expect(instance.injector).toBe(Injector)
+
+    class ChildRequire
+        inject:
+            myClass: "MyClass"
+            testInit: "TestInit"
+            parent: "ParentRequire"
+
+    class ParentRequire
+        inject:
+            testInit: "TestInit"
+
+    it "injects injections recursively", ->
+        Injector.map modulePath: "test/myclass"
+        Injector.map klass: TestInit
+        Injector.map klass: ChildRequire
+        Injector.map klass: ParentRequire
+        instance = Injector.getInstanceOf "ChildRequire"
+        expect(instance.parent.testInit).toBeDefined()
+        expect(instance.parent.testInit instanceof Injector.getClassOf("TestInit")).toBe(true)
         

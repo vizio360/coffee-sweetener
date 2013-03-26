@@ -1,6 +1,6 @@
 class MyClass
     constructor: ->
 
-    init: ->
+    initInstance: ->
     
 module.exports = MyClass

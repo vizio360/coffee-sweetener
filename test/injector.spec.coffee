@@ -1,13 +1,17 @@
 describe "Injector", ->
-    Injector = require "../src/injector"
+    Injector = null
     MyClass = require "./myclass"
     
     beforeEach ->
-        Injector.destroy()
+        Injector = require "../src/injector"
 
     it "has a map method defined", ->
         expect(Injector.map).toBeDefined()
 
+    it "provides a singleton of itself", ->
+        newInjector = require "../src/injector"
+        expect(newInjector.asSingleton()).toBe(Injector.asSingleton())
+        
     it "gets an instance of a mapped type", ->
         Injector.map
             name: "MyClass"
@@ -69,8 +73,13 @@ describe "Injector", ->
         instance = Injector.getInstanceOf("MyClass")
         expect(instance.injector).toBe(Injector)
         
+    # not so sure about this one
+    it "defines an injector property on the class type", ->
+        Injector.map modulePath: "test/myclass"
+        expect(Injector.getClassOf("MyClass").injector).toBe(Injector)
+        
     class TestInit
-        init: jasmine.createSpy("init")
+        initInstance: jasmine.createSpy("initInstance")
 
     it "can map a class", ->
         Injector.map klass: TestInit
@@ -86,10 +95,10 @@ describe "Injector", ->
         expect(instance).toBeDefined()
         expect((instance instanceof TestInit)).toBe(true)
 
-    it "calls the instance init function, if defined, when creating xit", ->
+    it "calls the instance initInstance function, if defined, when creating xit", ->
         Injector.map klass: TestInit
         instance = Injector.getInstanceOf("TestInit")
-        expect(instance.init).toHaveBeenCalled()
+        expect(instance.initInstance).toHaveBeenCalled()
         
     it "can map a value", ->
         Injector.map value: 12345, name: "FirstFiveNumbers"

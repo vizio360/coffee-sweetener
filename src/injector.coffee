@@ -20,6 +20,7 @@ class Mapping
         injectorRef = injector
         @klass = requireClass @mappingObject.modulePath if @mappingObject.modulePath?
         @klass = @mappingObject.klass if @mappingObject.klass?
+        @klass.injector = injector if @klass?
         @asValue @mappingObject.value if @mappingObject.value?
 
     isSingleton: false
@@ -27,7 +28,7 @@ class Mapping
     create: ->
         instance = new @klass
         instance.injector = injectorRef
-        instance.init?()
+        instance.initInstance?()
         instance
 
     get: ->
@@ -97,5 +98,10 @@ class Injector
 
     toString: ->
         JSON.stringify mapping
+
+    asSingleton: ->
+        InjectorSingleton
     
+InjectorSingleton = new Injector()
+
 module.exports = new Injector()

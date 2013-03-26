@@ -16,6 +16,9 @@ Each mapping has a unique id that you define.
 From different modules you can query the bucket to give you a new instance of a specific mapping.
 Within functions you can define depenecies which will be satisfied on creation of a new object.
 
+* auto-gen TOC:
+{:toc}
+
 # API
 ### Let's start with an example
 ```coffeescript

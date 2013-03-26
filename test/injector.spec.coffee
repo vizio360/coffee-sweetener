@@ -12,6 +12,9 @@ describe "Injector", ->
         newInjector = require "../src/injector"
         expect(newInjector.asSingleton()).toBe(Injector.asSingleton())
         
+    it "maps itself automatically", ->
+        expect(Injector.getInstanceOf("Injector")).toBe(Injector)
+        
     it "gets an instance of a mapped type", ->
         Injector.map
             name: "MyClass"
@@ -63,15 +66,6 @@ describe "Injector", ->
         Injector.map modulePath: "test/myclass"
         Injector.unmap("MyClass")
         expect(-> Injector.getInstanceOf("MyClass")).toThrow()
-
-    it "defines an injector property on new instances", ->
-        Injector.map modulePath: "test/myclass"
-        instance = Injector.getInstanceOf("MyClass")
-        expect(instance.injector).toBe(Injector)
-        Injector.unmap "test/myclass"
-        Injector.map(modulePath: "test/myclass").asSingleton()
-        instance = Injector.getInstanceOf("MyClass")
-        expect(instance.injector).toBe(Injector)
         
     # not so sure about this one
     it "defines an injector property on the class type", ->
@@ -95,7 +89,7 @@ describe "Injector", ->
         expect(instance).toBeDefined()
         expect((instance instanceof TestInit)).toBe(true)
 
-    it "calls the instance initInstance function, if defined, when creating xit", ->
+    it "calls the instance initInstance function, if defined, when creating it", ->
         Injector.map klass: TestInit
         instance = Injector.getInstanceOf("TestInit")
         expect(instance.initInstance).toHaveBeenCalled()
@@ -116,4 +110,23 @@ describe "Injector", ->
         expect(Injector.toString()).toMatch(JSON.stringify(mapObj1))
         expect(Injector.toString()).toMatch(JSON.stringify(mapObj2))
         
+    class RequireInjections
+        inject:
+            myClass: "MyClass"
+            testInit: "TestInit"
+            someInt: "SomeInt"
+            injector: "Injector"
+
+    it "injects what is required by the instance", ->
+        Injector.map modulePath: "test/myclass"
+        Injector.map klass: TestInit
+        Injector.map klass: RequireInjections
+        Injector.map value: 12345, name: "SomeInt"
+        instance = Injector.getInstanceOf "RequireInjections"
+        expect(instance.myClass).toBeDefined()
+        expect(instance.myClass instanceof Injector.getClassOf("MyClass")).toBe(true)
+        expect(instance.testInit).toBeDefined()
+        expect(instance.testInit instanceof Injector.getClassOf("TestInit")).toBe(true)
+        expect(instance.someInt).toBe(12345)
+        expect(instance.injector).toBe(Injector)
         

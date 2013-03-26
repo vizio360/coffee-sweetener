@@ -27,9 +27,13 @@ class Mapping
 
     create: ->
         instance = new @klass
-        instance.injector = injectorRef
+        @inject(instance)
         instance.initInstance?()
         instance
+
+    inject: (instance) ->
+        return unless instance.inject?
+        instance[key] = injectorRef.getInstanceOf(value) for own key, value of instance.inject
 
     get: ->
         if @isSingleton
@@ -56,6 +60,9 @@ class Mapping
     
 class Injector
     mapping = {}
+
+    constructor: ->
+        @map(value: @, name: "Injector")
 
     validateObjectField: (object, field, type) ->
         throw new Error "#{field} should be a #{type}" if object[field]? and typeof object[field] isnt type
@@ -99,9 +106,8 @@ class Injector
     toString: ->
         JSON.stringify mapping
 
+    @InjectorSingleton: undefined
     asSingleton: ->
-        InjectorSingleton
-    
-InjectorSingleton = new Injector()
+        @constructor.InjectorSingleton or @constructor.InjectorSingleton = new Injector()
 
 module.exports = new Injector()

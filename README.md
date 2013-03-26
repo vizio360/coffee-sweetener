@@ -18,13 +18,74 @@ Within functions you can define depenecies which will be satisfied on creation o
 
 # API
 
-## create an Injector
+### create an Injector
 
 ```coffeescript
     Injector = require 'nodeInjector'
 ```
 
-## Map a module knowing the path
+### Map a module knowing the path
+Just map the module by specifing the path. Be aware that this works only for modules which only export one class.
 ```coffeescript
     Injector.map
+        modulePath: 'src/yourModule'
 ```
+where `yourModule` is:
+```coffeescript
+class YourModule
+
+module.exports = YourModule
+```
+Here the name of the mapping will be inferred by the name of the class exported in the module.
+
+### Map a Class
+```coffeescript
+    class MyClass
+        
+    Injector.map
+        klass: MyClass
+```
+Here the name of the mapping will be automatically set to the name of the class.
+
+### Map a Class as a Singleton
+```coffeescript
+    class MyClass
+        
+    Injector.map
+        klass: MyClass
+    .asSingleton()
+```
+
+### Map a Value
+```coffeescript
+    user = "vizio"
+    Injector.map
+        value: user
+        name: "user"
+```
+A value can be anything, it can also be a function. 
+When mapping a value you should always provide a name for the mapping.
+
+
+## Specifing a name for a mapping
+This applies for all mapping types.
+
+By passing the name to the mapping:
+```coffeescript
+    class MyClass
+        
+    Injector.map
+        klass: MyClass
+        name: "NewName"
+```
+
+By calling the `as()` method:
+```coffeescript
+    class MyClass
+        
+    Injector.map
+        klass: MyClass
+    .as "NewName"
+```
+
+

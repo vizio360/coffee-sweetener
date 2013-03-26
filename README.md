@@ -24,18 +24,20 @@ class MyClass
         console.log "YEAH!"
 
 Injector = require "nodeInjector"
+
 Injector.map
     klass: MyClass
 
 instance = Injector.getInstanceOf "MyClass"
+
 instance.sayYeah() # this print "YEAH!" to the console
 ```
 
-### create an Injector
-
+### Create an Injector
 ```coffeescript
 Injector = require 'nodeInjector'
 ```
+nodeInjector alreay exports a new instance of Injector so no need to call the `new` operator.
 
 ### Map a module knowing the path
 Just map the module by specifing the path. Be aware that this works only for modules which only export one class.

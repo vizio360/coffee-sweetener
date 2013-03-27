@@ -116,3 +116,28 @@ Injector.map
 .asSingleton().as("MySingleton")
 ```
 
+## `.getInstanceOf( mappingName )`
+Once you've created your mappings you can ask the Injector for them:
+```coffeescript
+class MyClass
+    
+Injector.map
+    klass: MyClass
+
+myInstance = Injector.getInstanceOf "MyClass"
+```
+For values the injector will always return that same value, it will not return a copy or a new instance of the value.
+
+## `.getClassOf( mappingName )`
+For mapped classes you can ask the Injector to get you the class definition object:
+```coffeescript
+class MyClass
+    
+Injector.map
+    klass: MyClass
+# getting MyClass definition object
+myClass = Injector.getClassOf "MyClass"
+# manually creating a new instance of MyClass
+myInstance = new myClass
+```
+

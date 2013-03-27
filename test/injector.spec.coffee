@@ -1,118 +1,116 @@
-describe "Injector", ->
-    Injector = null
+describe "injector", ->
+    Injector = require "../src/injector"
     MyClass = require "./assets/myclass"
+    injector = null
     
     beforeEach ->
-        klass = require "../src/injector"
-        Injector = new klass()
-        console.log Injector.toString()
+        injector = new Injector()
+        console.log injector.toString()
 
     it "has a map method defined", ->
-        expect(Injector.map).toBeDefined()
+        expect(injector.map).toBeDefined()
 
     it "provides a singleton of itself", ->
-        klass = require "../src/injector"
-        newInjector = new klass()
-        expect(newInjector.asSingleton()).toBe(Injector.asSingleton())
+        newInjector = new Injector()
+        expect(newInjector.asSingleton()).toBe(injector.asSingleton())
         
     it "maps itself automatically", ->
-        expect(Injector.getInstanceOf("Injector")).toBe(Injector)
+        expect(injector.getInstanceOf("Injector")).toBe(injector)
         
     it "gets an instance of a mapped type", ->
-        Injector.map
+        injector.map
             name: "MyClass"
             modulePath: "test/assets/myclass"
-        instance = Injector.getInstanceOf("MyClass")
+        instance = injector.getInstanceOf("MyClass")
         expect(instance).toBeDefined()
         expect((instance instanceof MyClass)).toBe(true)
 
     it "determines the mapping name from the module loaded", ->
-        Injector.map
+        injector.map
             modulePath: "test/assets/myclass"
-        instance = Injector.getInstanceOf("MyClass")
+        instance = injector.getInstanceOf("MyClass")
         expect(instance).toBeDefined()
         expect((instance instanceof MyClass)).toBe(true)
 
     it "raises an error if both name and modulePath are not defined", ->
-        expect(-> Injector.map()).toThrow()
-        expect(-> Injector.map({})).toThrow()
+        expect(-> injector.map()).toThrow()
+        expect(-> injector.map({})).toThrow()
 
     it "raises an error if asking for an instance of a non mapped type", ->
-        expect(-> Injector.getInstanceOf("blah")).toThrow()
+        expect(-> injector.getInstanceOf("blah")).toThrow()
 
     it "returns the same instance for a type mapped as Singleton", ->
-        Injector.map(modulePath: "test/assets/myclass").asSingleton()
-        instance = Injector.getInstanceOf("MyClass")
-        instance2 = Injector.getInstanceOf("MyClass")
+        injector.map(modulePath: "test/assets/myclass").asSingleton()
+        instance = injector.getInstanceOf("MyClass")
+        instance2 = injector.getInstanceOf("MyClass")
         expect(instance).toBe(instance2)
 
     it "maps a module with a specific name", ->
-        Injector.map(modulePath: "test/assets/myclass").as("IClass")
-        instance = Injector.getInstanceOf("IClass")
+        injector.map(modulePath: "test/assets/myclass").as("IClass")
+        instance = injector.getInstanceOf("IClass")
         #checking that the default mapping is not available
-        expect(-> Injector.getInstanceOf("MyClass")).toThrow()
+        expect(-> injector.getInstanceOf("MyClass")).toThrow()
         expect(instance).toBeDefined()
         expect((instance instanceof MyClass)).toBe(true)
 
     it "maps a singleton with a specific name", ->
-        Injector.map(modulePath: "test/assets/myclass").asSingleton().as("IClass")
-        instance = Injector.getInstanceOf("IClass")
-        instance2 = Injector.getInstanceOf("IClass")
+        injector.map(modulePath: "test/assets/myclass").asSingleton().as("IClass")
+        instance = injector.getInstanceOf("IClass")
+        instance2 = injector.getInstanceOf("IClass")
         expect(instance).toBe(instance2)
 
     it "gets a class reference of a mapped type", ->
-        Injector.map(modulePath: "test/assets/myclass")
-        klass = Injector.getClassOf("MyClass")
+        injector.map(modulePath: "test/assets/myclass")
+        klass = injector.getClassOf("MyClass")
         expect(klass).toBe(MyClass)
 
     it "unmaps a type", ->
-        Injector.map modulePath: "test/assets/myclass"
-        Injector.unmap("MyClass")
-        expect(-> Injector.getInstanceOf("MyClass")).toThrow()
+        injector.map modulePath: "test/assets/myclass"
+        injector.unmap("MyClass")
+        expect(-> injector.getInstanceOf("MyClass")).toThrow()
         
     # not so sure about this one
     it "defines an injector property on the class type", ->
-        Injector.map modulePath: "test/assets/myclass"
-        expect(Injector.getClassOf("MyClass").injector).toBe(Injector)
+        injector.map modulePath: "test/assets/myclass"
+        expect(injector.getClassOf("MyClass").injector).toBe(injector)
         
     class TestInit
         initInstance: jasmine.createSpy("initInstance")
 
     it "can map a class", ->
-        Injector.map klass: TestInit
-        instance = Injector.getInstanceOf("TestInit")
+        injector.map klass: TestInit
+        instance = injector.getInstanceOf("TestInit")
         expect(instance).toBeDefined()
         expect((instance instanceof TestInit)).toBe(true)
         
     it "maps a class with a specific name", ->
-        Injector.map(klass: TestInit).as("IClass")
-        instance = Injector.getInstanceOf("IClass")
+        injector.map(klass: TestInit).as("IClass")
+        instance = injector.getInstanceOf("IClass")
         #checking that the default mapping is not available
-        expect(-> Injector.getInstanceOf("TestInit")).toThrow()
+        expect(-> injector.getInstanceOf("TestInit")).toThrow()
         expect(instance).toBeDefined()
         expect((instance instanceof TestInit)).toBe(true)
 
     it "calls the instance initInstance function, if defined, when creating it", ->
-        Injector.map klass: TestInit
-        instance = Injector.getInstanceOf("TestInit")
+        injector.map klass: TestInit
+        instance = injector.getInstanceOf("TestInit")
         expect(instance.initInstance).toHaveBeenCalled()
         
     it "can map a value", ->
-        Injector.map value: 12345, name: "FirstFiveNumbers"
-        instance = Injector.getInstanceOf("FirstFiveNumbers")
+        injector.map value: 12345, name: "FirstFiveNumbers"
+        instance = injector.getInstanceOf("FirstFiveNumbers")
         expect(instance).toBe(12345)
 
     it "raises an error if mapping a value without a name", ->
-        expect(-> Injector.map value: 12345).toThrow()
+        expect(-> injector.map value: 12345).toThrow()
 
     it "prints out the mappings", ->
         mapObj1 = value: 12345, name: "FirstFiveNumbers"
-        Injector.map mapObj1
+        injector.map mapObj1
         mapObj2 = klass: TestInit
-        Injector.map mapObj2
-        console.log Injector.toString()
-        expect(Injector.toString()).toMatch(JSON.stringify(mapObj1))
-        expect(Injector.toString()).toMatch(JSON.stringify(mapObj2))
+        injector.map mapObj2
+        expect(injector.toString()).toMatch(JSON.stringify(mapObj1))
+        expect(injector.toString()).toMatch(JSON.stringify(mapObj2))
         
     class RequireInjections
         inject:
@@ -122,17 +120,17 @@ describe "Injector", ->
             injector: "Injector"
 
     it "injects what is required by the instance", ->
-        Injector.map modulePath: "test/assets/myclass"
-        Injector.map klass: TestInit
-        Injector.map klass: RequireInjections
-        Injector.map value: 12345, name: "SomeInt"
-        instance = Injector.getInstanceOf "RequireInjections"
+        injector.map modulePath: "test/assets/myclass"
+        injector.map klass: TestInit
+        injector.map klass: RequireInjections
+        injector.map value: 12345, name: "SomeInt"
+        instance = injector.getInstanceOf "RequireInjections"
         expect(instance.myClass).toBeDefined()
-        expect(instance.myClass instanceof Injector.getClassOf("MyClass")).toBe(true)
+        expect(instance.myClass instanceof injector.getClassOf("MyClass")).toBe(true)
         expect(instance.testInit).toBeDefined()
-        expect(instance.testInit instanceof Injector.getClassOf("TestInit")).toBe(true)
+        expect(instance.testInit instanceof injector.getClassOf("TestInit")).toBe(true)
         expect(instance.someInt).toBe(12345)
-        expect(instance.injector).toBe(Injector)
+        expect(instance.injector).toBe(injector)
 
     class ChildRequire
         inject:
@@ -145,11 +143,11 @@ describe "Injector", ->
             testInit: "TestInit"
 
     it "injects injections recursively", ->
-        Injector.map modulePath: "test/assets/myclass"
-        Injector.map klass: TestInit
-        Injector.map klass: ChildRequire
-        Injector.map klass: ParentRequire
-        instance = Injector.getInstanceOf "ChildRequire"
+        injector.map modulePath: "test/assets/myclass"
+        injector.map klass: TestInit
+        injector.map klass: ChildRequire
+        injector.map klass: ParentRequire
+        instance = injector.getInstanceOf "ChildRequire"
         expect(instance.parent.testInit).toBeDefined()
-        expect(instance.parent.testInit instanceof Injector.getClassOf("TestInit")).toBe(true)
+        expect(instance.parent.testInit instanceof injector.getClassOf("TestInit")).toBe(true)
         

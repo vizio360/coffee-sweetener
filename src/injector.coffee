@@ -102,9 +102,12 @@ class Injector
         @mappings = {}
 
     toString: ->
-        JSON.stringify @mappings, (key, value) =>
+        replacer = (key, value) =>
+            # avoiding circular references to break
+            # JSON.stringify method.
             return "Reference to itself" if value is @
             value
+        JSON.stringify @mappings, replacer
 
     @InjectorSingleton: undefined
     asSingleton: ->

@@ -24,7 +24,9 @@ class MyClass
     sayYeah: ->
         console.log "YEAH!"
 # get the Injector
-Injector = require "coffeeInjector"
+CoffeeInjector = require "coffeeInjector"
+Injector = new CoffeeInjector()
+
 # map MyClass in the Injector
 Injector.map
     klass: MyClass
@@ -36,9 +38,9 @@ instance.sayYeah() # this print "YEAH!" to the console
 
 ### Create an Injector
 ```coffeescript
-Injector = require 'coffeeInjector'
+CoffeeInjector = require "coffeeInjector"
+Injector = new CoffeeInjector()
 ```
-coffeeInjector alreay exports a new instance of Injector so no need to call the `new` operator.
 
 ## `.map( mappingObject )`
 #### Map a module knowing the path

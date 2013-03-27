@@ -59,7 +59,7 @@ class Mapping
 class Injector
 
     constructor: ->
-        @mappings = {}
+        @_mappings = {}
         @map(value: @, name: "Injector")
 
     validateObjectField: (object, field, type) ->
@@ -75,31 +75,31 @@ class Injector
         else if modulePath?
             mappingObject.name = extractFunctionName(requireClass(mappingObject.modulePath)) unless mappingObject.name?
         else if value?
-            throw new Error "For value @mappings you need to provide a name" unless name?
+            throw new Error "For value mappings you need to provide a name" unless name?
         else
-            throw new Error "You need to provide a klass or a modulePath or a value with optionally a name for a @mappings"
-        @mappings[mappingObject.name] or= new Mapping @, mappingObject
+            throw new Error "You need to provide a klass or a modulePath or a value with optionally a name for a mappings"
+        @_mappings[mappingObject.name] or= new Mapping @, mappingObject
 
     unmap: (klassName) ->
-        delete @mappings[klassName]
+        delete @_mappings[klassName]
 
     remap: (oldName, newName) ->
-        @mappings[newName] = @mappings[oldName]
+        @_mappings[newName] = @_mappings[oldName]
         @unmap oldName
 
-    getMapping: (klassName) ->
-        map = @mappings[klassName]
+    _getMapping: (klassName) ->
+        map = @_mappings[klassName]
         throw new Error("#{klassName} not mapped in Injector") unless map?
         map
 
     getInstanceOf: (mappedName) ->
-        @getMapping(mappedName).get()
+        @_getMapping(mappedName).get()
             
     getClassOf: (klassName) ->
-        @getMapping(klassName).getClass()
+        @_getMapping(klassName).getClass()
 
     destroy: ->
-        @mappings = {}
+        @_mappings = {}
 
     toString: ->
         replacer = (key, value) =>
@@ -107,7 +107,7 @@ class Injector
             # JSON.stringify method.
             return "Reference to itself" if value is @
             value
-        JSON.stringify @mappings, replacer
+        JSON.stringify @_mappings, replacer
 
     @InjectorSingleton: undefined
     asSingleton: ->

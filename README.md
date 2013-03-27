@@ -55,7 +55,7 @@ class YourModule
 
 module.exports = YourModule
 ```
-Here the name of the mapping will be inferred by the name of the class exported in the module.
+Here the name of the mapping will be inferred from the name of the class exported in the module.
 
 #### Map a Class
 ```coffeescript

@@ -15,12 +15,10 @@ requireClass = (path) ->
     require path
 
 class Mapping
-    injectorRef = undefined
-    constructor: (injector, @mappingObject) ->
-        injectorRef = injector
+    constructor: (@injector, @mappingObject) ->
         @klass = requireClass @mappingObject.modulePath if @mappingObject.modulePath?
         @klass = @mappingObject.klass if @mappingObject.klass?
-        @klass.injector = injector if @klass?
+        @klass.injector = @injector if @klass?
         @asValue @mappingObject.value if @mappingObject.value?
 
     isSingleton: false
@@ -33,7 +31,7 @@ class Mapping
 
     inject: (instance) ->
         return unless instance.inject?
-        instance[key] = injectorRef.getInstanceOf(value) for own key, value of instance.inject
+        instance[key] = @injector.getInstanceOf(value) for own key, value of instance.inject
 
     get: ->
         if @isSingleton
@@ -49,7 +47,7 @@ class Mapping
         @
 
     as: (newName) ->
-        injectorRef.remap(@mappingObject.name, newName)
+        @injector.remap(@mappingObject.name, newName)
         @
 
     asValue: (value) ->
@@ -59,9 +57,9 @@ class Mapping
 
     
 class Injector
-    mapping = {}
 
     constructor: ->
+        @mappings = {}
         @map(value: @, name: "Injector")
 
     validateObjectField: (object, field, type) ->
@@ -77,37 +75,39 @@ class Injector
         else if modulePath?
             mappingObject.name = extractFunctionName(requireClass(mappingObject.modulePath)) unless mappingObject.name?
         else if value?
-            throw new Error "For value mapping you need to provide a name" unless name?
+            throw new Error "For value @mappings you need to provide a name" unless name?
         else
-            throw new Error "You need to provide a klass or a modulePath or a value with optionally a name for a mapping"
-        mapping[mappingObject.name] or= new Mapping @, mappingObject
+            throw new Error "You need to provide a klass or a modulePath or a value with optionally a name for a @mappings"
+        @mappings[mappingObject.name] or= new Mapping @, mappingObject
 
     unmap: (klassName) ->
-        delete mapping[klassName]
+        delete @mappings[klassName]
 
     remap: (oldName, newName) ->
-        mapping[newName] = mapping[oldName]
+        @mappings[newName] = @mappings[oldName]
         @unmap oldName
 
-    getMapping = (klassName) ->
-        map = mapping[klassName]
+    getMapping: (klassName) ->
+        map = @mappings[klassName]
         throw new Error("#{klassName} not mapped in Injector") unless map?
         map
 
     getInstanceOf: (mappedName) ->
-        getMapping(mappedName).get()
+        @getMapping(mappedName).get()
             
     getClassOf: (klassName) ->
-        getMapping(klassName).getClass()
+        @getMapping(klassName).getClass()
 
     destroy: ->
-        mapping = {}
+        @mappings = {}
 
     toString: ->
-        JSON.stringify mapping
+        JSON.stringify @mappings, (key, value) =>
+            return "Reference to itself" if value is @
+            value
 
     @InjectorSingleton: undefined
     asSingleton: ->
         @constructor.InjectorSingleton or @constructor.InjectorSingleton = new Injector()
 
-module.exports = new Injector()
+module.exports = Injector

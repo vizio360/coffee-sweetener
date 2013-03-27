@@ -3,13 +3,16 @@ describe "Injector", ->
     MyClass = require "./assets/myclass"
     
     beforeEach ->
-        Injector = require "../src/injector"
+        klass = require "../src/injector"
+        Injector = new klass()
+        console.log Injector.toString()
 
     it "has a map method defined", ->
         expect(Injector.map).toBeDefined()
 
     it "provides a singleton of itself", ->
-        newInjector = require "../src/injector"
+        klass = require "../src/injector"
+        newInjector = new klass()
         expect(newInjector.asSingleton()).toBe(Injector.asSingleton())
         
     it "maps itself automatically", ->
@@ -107,6 +110,7 @@ describe "Injector", ->
         Injector.map mapObj1
         mapObj2 = klass: TestInit
         Injector.map mapObj2
+        console.log Injector.toString()
         expect(Injector.toString()).toMatch(JSON.stringify(mapObj1))
         expect(Injector.toString()).toMatch(JSON.stringify(mapObj2))
         

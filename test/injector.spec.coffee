@@ -5,7 +5,6 @@ describe "injector", ->
     
     beforeEach ->
         injector = new Injector()
-        console.log injector.toString()
 
     it "has a map method defined", ->
         expect(injector.map).toBeDefined()

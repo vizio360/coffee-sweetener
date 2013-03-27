@@ -109,10 +109,10 @@ Injector.map
 .as "NewName"
 ```
 
-## Fluent API
+##### Fluent API
 You can chain the calls to the different APIs when creating a mapping.
 ```coffeescript
-# mapping a class as Singleton and a specific name
+###### mapping a class as Singleton and a specific name
 Injector.map
     modulePath: "yourModulePath"
 .asSingleton().as("MySingleton")

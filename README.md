@@ -1,4 +1,4 @@
-# Dependency Injection in Node
+# Dependency Injection in CoffeeScript
 
 Reasons for building it:
 
@@ -8,42 +8,41 @@ Reasons for building it:
  - missing the comfort of dependecy injection components like SwiftSuspenders (ActionScript)
  - ease the maintenance of big applications
 
-# nodeInjector
+# coffeeInjector
 
 This is a small and simple utility component that you can use in your applications to ease the management of dependencies between objects.
-The idea is simple, you have a factory object where you define some mappings.
+The idea is simple, you have a factory object (we'll call this the injector) where you define some mappings.
 Each mapping has a unique id that you define.
-From different modules you can query the bucket to give you a new instance of a specific mapping.
-Within functions you can define depenecies which will be satisfied on creation of a new object.
-
-* auto-gen TOC:
-{:toc}
+From different modules you can query the factory to give you a new instance of a specific mapping.
+Within classes you can define depenecies which will be satisfied on creation of a new instance of that class.
 
 # API
 ### Let's start with an example
 ```coffeescript
+# define a class
 class MyClass
     sayYeah: ->
         console.log "YEAH!"
-
-Injector = require "nodeInjector"
-
+# get the Injector
+Injector = require "coffeeInjector"
+# map MyClass in the Injector
 Injector.map
     klass: MyClass
-
+# ask the Injector to give you a new instance of MyClass
 instance = Injector.getInstanceOf "MyClass"
-
+# use the instance
 instance.sayYeah() # this print "YEAH!" to the console
 ```
 
 ### Create an Injector
 ```coffeescript
-Injector = require 'nodeInjector'
+Injector = require 'coffeeInjector'
 ```
-nodeInjector alreay exports a new instance of Injector so no need to call the `new` operator.
+coffeeInjector alreay exports a new instance of Injector so no need to call the `new` operator.
 
-### Map a module knowing the path
-Just map the module by specifing the path. Be aware that this works only for modules which only export one class.
+## `.map()'
+#### Map a module knowing the path
+Just map the module by specifing the path. Be aware that this works only for modules which wxports one class.
 ```coffeescript
 Injector.map
     modulePath: 'src/yourModule'
@@ -56,7 +55,7 @@ module.exports = YourModule
 ```
 Here the name of the mapping will be inferred by the name of the class exported in the module.
 
-### Map a Class
+#### Map a Class
 ```coffeescript
 class MyClass
     
@@ -65,7 +64,8 @@ Injector.map
 ```
 Here the name of the mapping will be automatically set to the name of the class.
 
-### Map a Class as a Singleton
+## `.asSingleton()`
+#### Map a Class as a Singleton
 ```coffeescript
 class MyClass
     
@@ -73,8 +73,9 @@ Injector.map
     klass: MyClass
 .asSingleton()
 ```
+Everytime you then ask the injector for an instance of the class, you'll get back always the same instance.
 
-### Map a Value
+#### Map a Value
 ```coffeescript
 user = "vizio"
 Injector.map
@@ -84,8 +85,8 @@ Injector.map
 A value can be anything, it can also be a function. 
 When mapping a value you should always provide a name for the mapping.
 
-
-## Specifing a name for a mapping
+## `.as()`
+#### Specifing a name for a mapping
 This applies for all mapping types.
 
 By passing the name to the mapping:
@@ -106,4 +107,11 @@ Injector.map
 .as "NewName"
 ```
 
+## Fluent API
+You can chain the calls to the different APIs when creating a mapping.
+```coffeescript
+Injector.map
+    modulePath: "yourModulePath"
+.asSingleton().as("MySingleton")
+```
 

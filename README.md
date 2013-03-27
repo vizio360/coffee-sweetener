@@ -40,7 +40,7 @@ Injector = require 'coffeeInjector'
 ```
 coffeeInjector alreay exports a new instance of Injector so no need to call the `new` operator.
 
-## `.map()'
+## `.map( mappingObject )`
 #### Map a module knowing the path
 Just map the module by specifing the path. Be aware that this works only for modules which wxports one class.
 ```coffeescript
@@ -85,7 +85,7 @@ Injector.map
 A value can be anything, it can also be a function. 
 When mapping a value you should always provide a name for the mapping.
 
-## `.as()`
+## `.as( newName )`
 #### Specifing a name for a mapping
 This applies for all mapping types.
 
@@ -110,6 +110,7 @@ Injector.map
 ## Fluent API
 You can chain the calls to the different APIs when creating a mapping.
 ```coffeescript
+# mapping a class as Singleton and a specific name
 Injector.map
     modulePath: "yourModulePath"
 .asSingleton().as("MySingleton")

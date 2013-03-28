@@ -36,9 +36,6 @@ Each mapping has a unique id that you define.
 From different modules you can query the *injector* to give you a new instance of a specific mapping.
 Within classes you can define depenecies which will be satisfied on creation of a new instance of that class.
 
-
-
-
 # API
 ## Let's start with an example
 ```coffeescript
@@ -64,6 +61,17 @@ instance.sayYeah() # this print "YEAH!" to the console
 CoffeeInjector = require "coffeeInjector"
 Injector = new CoffeeInjector()
 ```
+Every Injector will automatically create a mapping to itself as a Singleton called "Injector".
+This is useful if you want to get hold of the injector from witin a class, by just pecifying it in the list of the injetion points.
+```coffeescript
+CoffeeInjector = require "coffeeInjector"
+Injector = new CoffeeInjector()
+
+class MyClass
+    inject:
+        injector: "Injector"
+```
+Every new instance of MyClass ( created through Injector.getInstanceOf) will have a property called injector which holds the reference to the Injector that created the class.
 
 ## `.map( mappingObject )`
 ### Map a module knowing the path

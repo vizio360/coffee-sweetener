@@ -16,6 +16,21 @@ Each mapping has a unique id that you define.
 From different modules you can query the *injector* to give you a new instance of a specific mapping.
 Within classes you can define depenecies which will be satisfied on creation of a new instance of that class.
 
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+ - [Dependency Injection in CoffeeScript](#dependency-injection-in-coffeescript)
+ - [coffeeInjector](#coffeeinjector)
+ - [API](#api)
+    - [Let's start with an example](#lets-start-with-an-example)
+    - [Create an Injector](#create-an-injector)
+    - [.map( mappingObject )](#map-mappingobject-)
+        - [Map a module knowing the path](#map-a-module-knowing-the-path)
+        - [Map a Class](#map-a-class)
+        - [Map a Value](#map-a-value)
+    - [.asSingleton()](#assingleton)
+
+
+
 # API
 ## Let's start with an example
 ```coffeescript

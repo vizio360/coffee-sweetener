@@ -11,9 +11,9 @@ Reasons for building it:
 # coffeeInjector
 
 This is a small and simple utility component that you can use in your applications to ease the management of dependencies between objects.
-The idea is simple, you have a factory object (we'll call this the injector) where you define some mappings.
+The idea is simple, you have a factory object (we'll call this the *injector*) where you define some mappings.
 Each mapping has a unique id that you define.
-From different modules you can query the factory to give you a new instance of a specific mapping.
+From different modules you can query the *injector* to give you a new instance of a specific mapping.
 Within classes you can define depenecies which will be satisfied on creation of a new instance of that class.
 
 # API
@@ -156,7 +156,7 @@ Injector.getInstanceOf "MyClass" # this will throw an exception!
 ```
 
 # Class Injection Points
-It is possible, from within a class, to specify a list of dependencies which the Injector will try to satisfy when creating new instance of the class.
+It is possible, from within a class, to specify a list of dependencies which the Injector will try to satisfy when creating new instances of the class.
 
 ```coffeescript
 # assuming Wheels and Engine have already been mapped in the Injector

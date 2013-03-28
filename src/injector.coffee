@@ -61,11 +61,15 @@ class Injector
     constructor: ->
         @_mappings = {}
         @map(value: @, name: "Injector")
+        @checkReservedMappings = (mappingObject) ->
+            if mappingObject?.name? and mappingObject.name is "Injector"
+                throw new Error("Cannot create mappings called Injector because it is a reserved mapping")
 
     validateObjectField: (object, field, type) ->
         throw new Error "#{field} should be a #{type}" if object[field]? and typeof object[field] isnt type
     
     map: (mappingObject) ->
+        @checkReservedMappings?(mappingObject)
         {klass, name, modulePath, value} = mappingObject
         @validateObjectField mappingObject, "name", "string"
         @validateObjectField mappingObject, "klass", "function"

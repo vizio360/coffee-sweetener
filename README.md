@@ -24,7 +24,7 @@ Reasons for building it:
 
  - bored of the list of `require` at the top of each module
  - bored of finding out the location of a module relative to another one for requiring it
- - challanging myself to build something useful
+ - challenging myself to build something useful
  - missing the comfort of dependecy injection components like SwiftSuspenders (ActionScript)
  - ease the maintenance of big applications
 
@@ -62,7 +62,7 @@ CoffeeInjector = require "coffeeInjector"
 Injector = new CoffeeInjector()
 ```
 Every Injector will automatically create a mapping to itself as a Singleton called "Injector".
-This is useful if you want to get hold of the injector from witin a class, by just pecifying it in the list of the injetion points.
+This is useful if you want to get hold of the injector from within a class, by just specifying it in the list of the injection points.
 ```coffeescript
 CoffeeInjector = require "coffeeInjector"
 Injector = new CoffeeInjector()
@@ -71,7 +71,7 @@ class MyClass
     inject:
         injector: "Injector"
 ```
-Every new instance of MyClass ( created through Injector.getInstanceOf) will have a property called injector which holds the reference to the Injector that created the class.
+Every new instance of MyClass ( created through `Injector.getInstanceOf`) will have a property called injector which holds the reference to the Injector that created the class.
 
 ## `.map( mappingObject )`
 ### Map a module knowing the path
@@ -176,6 +176,9 @@ Injector.map
 Injector.unmap "MyClass"
 Injector.getInstanceOf "MyClass" # this will throw an exception!
 ```
+
+## `.destroy()`
+Destroys all the mappings.
 
 ## Fluent API
 You can chain the calls to the different APIs when creating a mapping.

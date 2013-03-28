@@ -150,3 +150,5 @@ describe "injector", ->
         expect(instance.parent.testInit).toBeDefined()
         expect(instance.parent.testInit instanceof injector.getClassOf("TestInit")).toBe(true)
         
+    it "raises an error if trying to create a mapping called Injector", ->
+        expect(-> injector.map klass:TestInit, name: "Injector").toThrow()

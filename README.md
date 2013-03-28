@@ -17,7 +17,7 @@ From different modules you can query the *injector* to give you a new instance o
 Within classes you can define depenecies which will be satisfied on creation of a new instance of that class.
 
 # API
-### Let's start with an example
+## Let's start with an example
 ```coffeescript
 # define a class
 class MyClass
@@ -36,14 +36,14 @@ instance = Injector.getInstanceOf "MyClass"
 instance.sayYeah() # this print "YEAH!" to the console
 ```
 
-### Create an Injector
+## Create an Injector
 ```coffeescript
 CoffeeInjector = require "coffeeInjector"
 Injector = new CoffeeInjector()
 ```
 
 ## `.map( mappingObject )`
-#### Map a module knowing the path
+### Map a module knowing the path
 Just map the module by specifing the path. Be aware that this works only for modules which wxports one class.
 ```coffeescript
 Injector.map
@@ -57,7 +57,7 @@ module.exports = YourModule
 ```
 Here the name of the mapping will be inferred from the name of the class exported in the module.
 
-#### Map a Class
+### Map a Class
 ```coffeescript
 class MyClass
     
@@ -66,18 +66,7 @@ Injector.map
 ```
 Here the name of the mapping will be automatically set to the name of the class.
 
-## `.asSingleton()`
-#### Map a Class as a Singleton
-```coffeescript
-class MyClass
-    
-Injector.map
-    klass: MyClass
-.asSingleton()
-```
-Everytime you then ask the injector for an instance of the class, you'll get back always the same instance.
-
-#### Map a Value
+### Map a Value
 ```coffeescript
 user = "vizio"
 Injector.map
@@ -87,8 +76,19 @@ Injector.map
 A value can be anything, it can also be a function. 
 When mapping a value you should always provide a name for the mapping.
 
+## `.asSingleton()`
+### Map a Class as a Singleton
+```coffeescript
+class MyClass
+    
+Injector.map
+    klass: MyClass
+.asSingleton()
+```
+Everytime you then ask the injector for an instance of the class, you'll get back always the same instance.
+
 ## `.as( newName )`
-#### Specifing a name for a mapping
+### Specifing a name for a mapping
 This applies for all mapping types.
 
 By passing the name to the mapping:
@@ -107,15 +107,6 @@ class MyClass
 Injector.map
     klass: MyClass
 .as "NewName"
-```
-
-##### Fluent API
-You can chain the calls to the different APIs when creating a mapping.
-```coffeescript
-###### mapping a class as Singleton and a specific name
-Injector.map
-    modulePath: "yourModulePath"
-.asSingleton().as("MySingleton")
 ```
 
 ## `.getInstanceOf( mappingName )`
@@ -155,6 +146,15 @@ Injector.unmap "MyClass"
 Injector.getInstanceOf "MyClass" # this will throw an exception!
 ```
 
+## Fluent API
+You can chain the calls to the different APIs when creating a mapping.
+```coffeescript
+### mapping a class as Singleton and a specific name
+Injector.map
+    modulePath: "yourModulePath"
+.asSingleton().as("MySingleton")
+```
+
 # Class Injection Points
 It is possible, from within a class, to specify a list of dependencies which the Injector will try to satisfy when creating new instances of the class.
 
@@ -174,7 +174,7 @@ console.log myCar.engine # will print out an instance of the Engine class
 ```
 This means that there is no need to require `Wheels` and `Engine` in the module file where Car is defined.
 
-## Instance initialisation
+# Instance initialisation
 Everytime the Injector creates new instances, it will call the `initInstance` on the new instance if that method is defined.
 This is the place you want to put all your initialisation logic, because you can be sure that at that point all the dependencies have been resolved.
 

@@ -143,3 +143,39 @@ myClass = Injector.getClassOf "MyClass"
 myInstance = new myClass
 ```
 
+## `.unmap( mappingName )`
+Unmaps a mapping.
+```coffeescript
+class MyClass
+
+Injector.map
+    klass: MyClass
+
+Injector.unmap "MyClass"
+Injector.getInstanceOf "MyClass" # this will throw an exception!
+```
+
+# Class Injection Points
+It is possible, from within a class, to specify a list of dependencies which the Injector will try to satisfy when creating new instance of the class.
+
+```coffeescript
+# assuming Wheels and Engine have already been mapped in the Injector
+class Car
+    inject:
+        wheels: "Wheels"
+        engine: "Engine"
+        
+Injector.map
+    klass: Car
+
+myCar = Injector.getInstanceOf "Car"
+console.log myCar.wheels # will print out an instance of the Wheels class
+console.log myCar.engine # will print out an instance of the Engine class
+```
+This means that there is no need to require `Wheels` and `Engine` in the module file where Car is defined.
+
+## Instance initialisation
+Everytime the Injector creates new instances, it will call the `initInstance` on the new instance if that method is defined.
+This is the place you want to put all your initialisation logic, because you can be sure that at that point all the dependencies have been resolved.
+
+

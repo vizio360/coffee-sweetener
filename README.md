@@ -20,14 +20,6 @@
 - [Class Injection Points](#class-injection-points)
 - [Instance initialisation](#instance-initialisation)
 
-Reasons for building it:
-
- - bored of the list of `require` at the top of each module
- - bored of finding out the location of a module relative to another one for requiring it
- - challenging myself to build something useful
- - missing the comfort of dependecy injection components like SwiftSuspenders (ActionScript)
- - ease the maintenance of big applications
-
 # coffeeInjector
 
 This is a small and simple utility component that you can use in your applications to ease the management of dependencies between objects.

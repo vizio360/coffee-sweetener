@@ -105,11 +105,12 @@ instance.sayYeah() # this prints "YEAH!" to the console
 </pre>
 <h3>Use Injection Points</h3>
 <pre class="brush: coffee">
-# define a class with injection points
+# define a class
 class Wheels
     printOut: ->
         console.log "Cool Wheels"
 
+# define a class with injection points
 class Car
     inject:
         wheels: "Wheels"

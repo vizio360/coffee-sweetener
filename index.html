@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" media="screen"/>
     <link rel="stylesheet" href="lib/syntaxhi/styles/shCore.css" media="screen"/>
-    <link rel="stylesheet" href="lib/syntaxhi/styles/shThemeDefault.css" media="screen"/>
+    <link rel="stylesheet" href="lib/syntaxhi/styles/shThemeMidnight.css" media="screen"/>
     <link rel="stylesheet" href="fonts/stylesheet.css"/>
     <style type="text/css">
         /* Sticky footer styles
@@ -73,10 +73,13 @@
             color: #FFF;
         }
         h2 {
-            font-family: 'MavenProMedium
+            font-family: 'MavenProMedium';
             font-size: 20px;
             color: #FFF;
-                
+        }
+        h3 {
+            font-size: 16px;
+            color: #FFF;
         }
         
     </style>
@@ -97,11 +100,14 @@
                     <p>Some people like coffee as it is, others like it with sugar. Same it's true for components like this one, some people like them others can live without them. But not be afraid of trying it as, not like sugar, it will keep your applications slim.</p>
                 </div>
                 <div class="span12">
+<h2>Examples</h2>
+<h3>Get Instances</h3>
 <pre class="brush: coffee">
 # define a class
 class MyClass
     sayYeah: ->
         console.log "YEAH!"
+
 # get the Injector
 CoffeeInjector = require "coffeeInjector"
 Injector = new CoffeeInjector()
@@ -109,10 +115,44 @@ Injector = new CoffeeInjector()
 # map MyClass in the Injector
 Injector.map
     klass: MyClass
+
 # ask the Injector to give you a new instance of MyClass
 instance = Injector.getInstanceOf "MyClass"
+
 # use the instance
-instance.sayYeah() # this print "YEAH!" to the console
+instance.sayYeah() # this prints "YEAH!" to the console
+</pre>
+<h3>Use Injection Points</h3>
+<pre class="brush: coffee">
+# define a class with injection points
+class Wheels
+    printOut: ->
+        console.log "Cool Wheels"
+
+class Car
+    inject:
+        wheels: "Wheels"
+
+    describe: ->
+        console.log "This car as some #{@wheels.printOut}"
+
+# get the Injector
+CoffeeInjector = require "coffeeInjector"
+Injector = new CoffeeInjector()
+
+# map Wheels in the Injector
+Injector.map
+    klass: Wheels
+
+# map Car in the Injector
+Injector.map
+    klass: Car
+
+# ask the Injector to give you a new instance of Car
+myCar = Injector.getInstanceOf "Car"
+
+# use the instance
+myCar.describe() # this prints "This car as some Cool Wheels" to the console
 </pre>
                 
                 </div>

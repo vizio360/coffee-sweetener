@@ -5,6 +5,9 @@
     <title>Coffee Injector</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" media="screen"/>
+    <link rel="stylesheet" href="lib/syntaxhi/styles/shCore.css" media="screen"/>
+    <link rel="stylesheet" href="lib/syntaxhi/styles/shThemeDefault.css" media="screen"/>
+    <link rel="stylesheet" href="fonts/stylesheet.css"/>
     <style type="text/css">
         /* Sticky footer styles
         -------------------------------------------------- */
@@ -12,6 +15,7 @@
         html,
         body {
             height: 100%;
+            background-color: #3B52D2;
             /* The html and body elements cannot have any padding or margin. */
         }
 
@@ -48,18 +52,88 @@
         /* Not required for template or sticky footer method. */
 
         .container {
-            width: auto;
-            max-width: 680px;
+            margin: 0px auto;
         }
         .container .credit {
             margin: 20px 0;
         }
+        .logo {
+            display: block;
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .forkMe {
+            position: absolute;
+            top: 0px;
+            right: 100px;
+        }
+        a, p {
+            font-family: 'MavenProRegular';
+            color: #FFF;
+        }
+        h2 {
+            font-family: 'MavenProMedium
+            font-size: 20px;
+            color: #FFF;
+                
+        }
+        
     </style>
 </head>
 <body>
+    <div class="forkMe"><img src="images/forkmeGray.png" alt="" /></div>
     <div id="wrap">
         <div class="container">
-            csdcs cdjasdcnj cajsncanscjnacnasc as cjsancknascn 
+            <div class="row">
+                <div class="span12">
+                    <img class="logo" src="images/logo.png" alt="" />
+                </div>
+                <div class="span12">
+                    <p>
+                   This is a small utility component that you can use in your applications to ease the management of dependencies between objects. The idea is simple, you have a factory object (we'll call this the injector) where you define some mappings. Each mapping has a unique id defined by you. From different modules you can query the injector to give you a new instance of a specific mapping. Within classes you can define dependecies which will be satisfied on creation of a new instance of that specific class. 
+                    </p>
+                    <h2>Why Coffee Sweetener?</h2>
+                    <p>Some people like coffee with sugar, some without. Same it's true for components like this one, some people like them others can live without them. Still, this is not sugar, this is a sweetener as it makes coffee taste sweet but it doesn't bloat up your applications.</p>
+                
+                </div>
+                <div class="span12">
+<pre class="brush: coffee">
+# define a class
+class MyClass
+    sayYeah: ->
+        console.log "YEAH!"
+# get the Injector
+CoffeeInjector = require "coffeeInjector"
+Injector = new CoffeeInjector()
+
+# map MyClass in the Injector
+Injector.map
+    klass: MyClass
+# ask the Injector to give you a new instance of MyClass
+instance = Injector.getInstanceOf "MyClass"
+# use the instance
+instance.sayYeah() # this print "YEAH!" to the console
+</pre>
+                
+                </div>
+                <div class="span12">
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <ul class="nav">
+                                <li class="active"><a href="#a">Intro</a></li>
+                                <li>
+                                    <a href="#b">Example</a>
+                                </li>
+                                <li><a href="#c">API</a></li>
+                                <li><a href="#d">Class Injection Points</a></li>
+                                <li><a href="#e">Instance Initialisation</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
         </div>
         <div id="push"></div>
     </div>
@@ -72,5 +146,10 @@
     </div>
     <script src="http://code.jquery.com/jquery.js" type="text/javascript"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="lib/syntaxhi/scripts/shCore.js" type="text/javascript"></script>
+    <script src="lib/syntaxhi/scripts/shBrushCoffeeScript.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    SyntaxHighlighter.all();
+    </script>
 </body>
 </html>

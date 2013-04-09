@@ -22,7 +22,7 @@
 
 # coffeeInjector
 
-This is a small and simple utility component that you can use in your applications to ease the management of dependencies between objects.
+This is a small utility component that you can use in your applications to ease the management of dependencies between objects.
 The idea is simple, you have a factory object (we'll call this the *injector*) where you define some mappings.
 Each mapping has a unique id that you define.
 From different modules you can query the *injector* to give you a new instance of a specific mapping.
@@ -67,7 +67,7 @@ Every new instance of MyClass ( created through `Injector.getInstanceOf`) will h
 
 ## `.map( mappingObject )`
 ### Map a module knowing the path
-Just map the module by specifing the path. Be aware that this works only for modules which wxports one class.
+Just map the module by specifing the path. *Be aware that this works only for modules which exports one class*.
 ```coffeescript
 Injector.map
     modulePath: 'src/yourModule'

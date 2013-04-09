@@ -208,4 +208,5 @@ This means that there is no need to require `Wheels` and `Engine` in the module 
 Everytime the Injector creates new instances, it will call the `initInstance` on the new instance if that method is defined.
 This is the place you want to put all your initialisation logic, because you can be sure that at that point all the dependencies have been resolved.
 
-
+# References
+The API is inspired by <a href="https://github.com/tschneidereit/SwiftSuspenders">SwiftSuspenders</a> which I used while developing Flashy things.

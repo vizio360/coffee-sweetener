@@ -2,6 +2,7 @@
 **Table of Contents**
 
  - [coffee-sweetener](#coffee-sweetener)
+ - [Installation](#installation)
  - [API](#api)
     - [Let's start with an example](#lets-start-with-an-example)
     - [Create an Injector](#create-an-injector)
@@ -21,12 +22,15 @@
 - [Instance initialisation](#instance-initialisation)
 
 # coffee-sweetener
-
 This is a small utility component that you can use in your applications to ease the management of dependencies between objects.
 The idea is simple, you have a factory object (we'll call this the *injector*) where you define some mappings.
 Each mapping has a unique id that you define.
 From different modules you can query the *injector* to give you a new instance of a specific mapping.
 Within classes you can define depenecies which will be satisfied on creation of a new instance of that class.
+
+# Installation
+You can install the latest version through npm:
+`npm install coffee-sweetener`
 
 # API
 ## Let's start with an example

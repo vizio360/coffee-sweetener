@@ -1,7 +1,7 @@
 # Dependency Injection in CoffeeScript
 **Table of Contents**
 
- - [coffeeInjector](#coffeeinjector)
+ - [coffee-sweetener](#coffee-sweetener)
  - [API](#api)
     - [Let's start with an example](#lets-start-with-an-example)
     - [Create an Injector](#create-an-injector)
@@ -20,7 +20,7 @@
 - [Class Injection Points](#class-injection-points)
 - [Instance initialisation](#instance-initialisation)
 
-# coffeeInjector
+# coffee-sweetener
 
 This is a small utility component that you can use in your applications to ease the management of dependencies between objects.
 The idea is simple, you have a factory object (we'll call this the *injector*) where you define some mappings.
@@ -36,8 +36,8 @@ class MyClass
     sayYeah: ->
         console.log "YEAH!"
 # get the Injector
-CoffeeInjector = require "coffeeInjector"
-Injector = new CoffeeInjector()
+CoffeeSweetener = require "coffee-sweetener"
+Injector = new CoffeeSweetener()
 
 # map MyClass in the Injector
 Injector.map
@@ -50,14 +50,14 @@ instance.sayYeah() # this print "YEAH!" to the console
 
 ## Create an Injector
 ```coffeescript
-CoffeeInjector = require "coffeeInjector"
-Injector = new CoffeeInjector()
+CoffeeSweetener = require "coffee-sweetener"
+Injector = new CoffeeSweetener()
 ```
 Every Injector will automatically create a mapping to itself as a Singleton called "Injector".
 This is useful if you want to get hold of the injector from within a class, by just specifying it in the list of the injection points.
 ```coffeescript
-CoffeeInjector = require "coffeeInjector"
-Injector = new CoffeeInjector()
+CoffeeSweetener = require "coffee-sweetener"
+Injector = new CoffeeSweetener()
 
 class MyClass
     inject:

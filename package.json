@@ -1,7 +1,7 @@
 {
-  "name": "coffee-injector",
+  "name": "coffee-sweetener",
   "version": "0.0.1",
-  "description": "Small and simple utility component that you can use in your applications to ease the management of dependencies between objects. The idea is simple, you have a factory object (we'll call this the *injector*) where you define some mappings. Each mapping has a unique id that you define. From different modules you can query the *injector* to give you a new instance of a specific mapping. Within classes you can define depenecies which will be satisfied on creation of a new instance of that class.",
+  "description": "Small utility component that you can use in your applications to ease the management of dependencies between objects. The idea is simple, you have a factory object (we'll call this the *injector*) where you define some mappings. Each mapping has a unique id that you define. From different modules you can query the *injector* to give you a new instance of a specific mapping. Within classes you can define depenecies which will be satisfied on creation of a new instance of that class.",
   "main": "index.js",
   "directories": {
     "lib": "lib",
@@ -17,11 +17,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/vizio360/coffeeInjector.git"
+    "url": "https://github.com/vizio360/coffee-sweetener"
   },
   "author": "Simone Vicentini (@vizio360)",
-  "license": "BSD",
-  "gitHead": "7950255063a3ddf5360f48e1cd03a612dddecd86",
+  "license": "MIT",
   "readmeFilename": "README.md",
   "keywords": [
     "coffeescript",

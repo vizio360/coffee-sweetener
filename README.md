@@ -175,7 +175,7 @@ Destroys all the mappings.
 ## Fluent API
 You can chain the calls to the different APIs when creating a mapping.
 ```coffeescript
-### mapping a class as Singleton and a specific name
+# mapping a class as a Singleton and specifying a new name for the mapping
 Injector.map
     modulePath: "yourModulePath"
 .asSingleton().as("MySingleton")

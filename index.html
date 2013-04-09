@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Coffee Injector</title>
+    <title>Coffee Sweetener</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" media="screen"/>
     <link rel="stylesheet" href="lib/syntaxhi/styles/shCore.css" media="screen"/>
@@ -66,7 +66,7 @@
     </style>
 </head>
 <body>
-    <div class="forkMe"><img src="images/forkmeGray.png" alt="" /></div>
+    <div class="forkMe"><a href=""><img src="images/forkmeGray.png" alt="" /></a></div>
     <div id="wrap">
         <div class="container">
             <div class="row">
@@ -90,8 +90,8 @@ class MyClass
         console.log "YEAH!"
 
 # get the Injector
-CoffeeInjector = require "coffeeInjector"
-Injector = new CoffeeInjector()
+CoffeeSweetener = require "coffeeInjector"
+Injector = new CoffeeSweetener()
 
 # map MyClass in the Injector
 Injector.map
@@ -119,8 +119,8 @@ class Car
         console.log "This car as some #{@wheels.printOut}"
 
 # get the Injector
-CoffeeInjector = require "coffeeInjector"
-Injector = new CoffeeInjector()
+CoffeeSweetener = require "coffee-sweetener"
+Injector = new CoffeeSweetener()
 
 # map Wheels in the Injector
 Injector.map
@@ -138,6 +138,11 @@ myCar.describe() # this prints "This car as some Cool Wheels" to the console
 </pre>
                 
                 </div>
+                <div class="span12">
+                    <h3>For the full API description please go to the official repo <a href="https://github.com/vizio360/coffeeInjector#dependency-injection-in-coffeescript">HERE</a></h3>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="http://code.jquery.com/jquery.js" type="text/javascript"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>

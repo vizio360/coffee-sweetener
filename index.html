@@ -119,7 +119,7 @@ class Car
         wheels: "Wheels"
 
     describe: ->
-        console.log "This car as some #{@wheels.printOut}"
+        console.log "This car has some #{@wheels.printOut}"
 
 # get the Injector
 CoffeeSweetener = require "coffee-sweetener"
@@ -137,7 +137,7 @@ Injector.map
 myCar = Injector.getInstanceOf "Car"
 
 # use the instance
-myCar.describe() # this prints "This car as some Cool Wheels" to the console
+myCar.describe() # this prints "This car has some Cool Wheels" to the console
 </pre>
                 
                 </div>

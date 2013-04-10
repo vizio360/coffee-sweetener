@@ -1,5 +1,5 @@
 describe "injector", ->
-    Injector = require "../src/injector"
+    Injector = require "../src/coffee-sweetener"
     MyClass = require "./assets/myclass"
     injector = null
     

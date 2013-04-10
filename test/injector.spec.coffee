@@ -10,9 +10,10 @@ describe "injector", ->
         expect(injector.map).toBeDefined()
 
     it "provides a singleton of itself", ->
-        newInjector = new Injector()
-        expect(newInjector.asSingleton()).toBe(injector.asSingleton())
-        
+        expect(Injector.asSingleton()).toBe(Injector.asSingleton())
+        expect(Injector.asSingleton()).not.toBe(injector)
+
+
     it "maps itself automatically", ->
         expect(injector.getInstanceOf("Injector")).toBe(injector)
         

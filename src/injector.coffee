@@ -114,7 +114,7 @@ class Injector
         JSON.stringify @_mappings, replacer
 
     @InjectorSingleton: undefined
-    asSingleton: ->
-        @constructor.InjectorSingleton or @constructor.InjectorSingleton = new Injector()
+    @asSingleton: ->
+        @InjectorSingleton or @InjectorSingleton = new Injector()
 
 module.exports = Injector

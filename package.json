@@ -1,6 +1,6 @@
 {
   "name": "coffee-sweetener",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Small utility component that you can use in your applications to ease the management of dependencies between objects. The idea is simple, you have a factory object (we'll call this the *injector*) where you define some mappings. Each mapping has a unique id that you define. From different modules you can query the *injector* to give you a new instance of a specific mapping. Within classes you can define depenecies which will be satisfied on creation of a new instance of that class.",
   "main": "index.js",
   "directories": {

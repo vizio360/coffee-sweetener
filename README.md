@@ -1,4 +1,7 @@
 # Dependency Injection in CoffeeScript
+
+[![Build Status](https://travis-ci.org/vizio360/coffee-sweetener.png)](https://travis-ci.org/vizio360/coffee-sweetener)
+
 **Table of Contents**
 
  - [coffee-sweetener](#coffee-sweetener)
